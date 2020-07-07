@@ -176,6 +176,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9034261836433992389, guid: 9bb70011bdfbf4a4582bdd80c5404416,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 843f47a6e87d9f6489dc3b89c8e03adf, type: 2}
     - target: {fileID: -8679921383154817045, guid: 9bb70011bdfbf4a4582bdd80c5404416,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -184,7 +189,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9bb70011bdfbf4a4582bdd80c5404416,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.123
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9bb70011bdfbf4a4582bdd80c5404416,
         type: 3}
@@ -234,7 +239,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9bb70011bdfbf4a4582bdd80c5404416,
         type: 3}
       propertyPath: m_Name
-      value: Ch24_nonPBR
+      value: Ninja
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9bb70011bdfbf4a4582bdd80c5404416,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bb70011bdfbf4a4582bdd80c5404416, type: 3}
@@ -256,6 +266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52862eaf4f4871b4d9b0841c41ea1f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 1036186132}
+  myNavMeshAgent: {fileID: 1036186131}
 --- !u!195 &1036186131
 NavMeshAgent:
   m_ObjectHideFlags: 0
