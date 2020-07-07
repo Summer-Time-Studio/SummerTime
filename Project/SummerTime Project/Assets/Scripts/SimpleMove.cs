@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class SimpleMove : MonoBehaviour
 {
     public Animator anim;
-   
+    private float anim_speed;
+    public float min_distance = 2.0f;
+
     public NavMeshAgent myNavMeshAgent;
     RaycastHit hit;
     // Start is called before the first frame update
@@ -21,9 +23,11 @@ public class SimpleMove : MonoBehaviour
         Attack();
         if (Input.GetMouseButtonDown(0))
         {
-            anim.SetBool("isWalking", true);
-            anim.SetBool("isRunning", false);
+            anim.SetBool("isMoving", true);
+            anim.SetBool("isAttacking", false);
+            //anim.SetBool("isRunning", false);
             SetDestinationToMousePosition();
+
             Debug.Log(this.GetComponent<Transform>().position);
         }
        
@@ -45,9 +49,8 @@ public class SimpleMove : MonoBehaviour
         Debug.Log(dis);
        if (dis<0.3)
         {
-            anim.SetBool("isWalking", false);
+            anim.SetBool("isMoving", false);
             anim.SetBool("isAttacking", true);
         }
-        
     }
 }
