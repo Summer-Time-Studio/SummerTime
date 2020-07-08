@@ -23,12 +23,12 @@ public class SimpleMove : MonoBehaviour
         Attack();
         if (Input.GetMouseButtonDown(0))
         {
-            anim.SetBool("isMoving", true);
+            anim.SetBool("isRunning", true);
             anim.SetBool("isAttacking", false);
             //anim.SetBool("isRunning", false);
             SetDestinationToMousePosition();
 
-            Debug.Log(this.GetComponent<Transform>().position);
+            //Debug.Log(this.GetComponent<Transform>().position);
         }
        
     }
@@ -46,7 +46,7 @@ public class SimpleMove : MonoBehaviour
     void Attack()
     {
        float dis = Vector3.Distance(this.GetComponent<Transform>().position, hit.point);
-        Debug.Log(dis);
+       // Debug.Log(dis);
        if (dis<0.3)
         {
             anim.SetBool("isMoving", false);
