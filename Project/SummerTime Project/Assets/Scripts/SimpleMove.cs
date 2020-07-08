@@ -30,6 +30,11 @@ public class SimpleMove : MonoBehaviour
 
             //Debug.Log(this.GetComponent<Transform>().position);
         }
+
+        if(this.GetComponent<AIPerceptionManager>().player_detected == true)
+        {
+            myNavMeshAgent.SetDestination(GameObject.Find("Capsule").transform.position);
+        }
        
     }
     void SetDestinationToMousePosition()

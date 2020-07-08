@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
+using UnityEngine.AI;
 public class PerceptionEvent
 {
 	public enum senses { VISION, SOUND };
@@ -9,6 +9,7 @@ public class PerceptionEvent
 	public GameObject go;
 	public senses sense;
 	public types type;
+	
 }
 
 public class AIVision : MonoBehaviour {
@@ -21,6 +22,7 @@ public class AIVision : MonoBehaviour {
 	private List<GameObject> detected_now;
 	private Ray ray;
 
+	public bool enemy_detected = false;
 	// Use this for initialization
 	void Start () {
 		detected = new List<GameObject>();
@@ -39,48 +41,51 @@ public class AIVision : MonoBehaviour {
 		{
 			if(col.gameObject != gameObject && GeometryUtility.TestPlanesAABB(planes, col.bounds))
 			{
-				Debug.Log(col.gameObject.name);
+				
 				RaycastHit hit;
 				ray.origin = transform.position;
 				ray.direction = (col.transform.position - transform.position).normalized;
 				ray.origin = ray.GetPoint(frustum.nearClipPlane);
-
+				Debug.DrawLine(ray.origin, ray.direction);
             	if(Physics.Raycast(ray, out hit, frustum.farClipPlane, ray_mask))
             	{
-					if(hit.collider.gameObject.CompareTag("Visual Emitter"))
-            			detected_now.Add(col.gameObject);
-            	}
+					Debug.Log("Player seen");
+					if (hit.collider.gameObject.CompareTag("Visual Emitter"))
+						detected_now.Add(col.gameObject);
+					enemy_detected = true;
+
+				}
 			}
 		}
 
-		//// Compare detected with detected_now -------------------------------------
-		//foreach(GameObject go in detected_now)
-		//{
-		//	if(detected.Contains(go) == false)
-		//	{
-		//		PerceptionEvent p_event = new PerceptionEvent();
-		//		p_event.go = go;
-		//		p_event.type = PerceptionEvent.types.NEW;
-	 //   		p_event.sense = PerceptionEvent.senses.VISION;
+        //// Compare detected with detected_now -------------------------------------
+        foreach (GameObject go in detected_now)
+        {
+            if (detected.Contains(go) == false)
+            {
+                PerceptionEvent p_event = new PerceptionEvent();
+                p_event.go = go;
+                p_event.type = PerceptionEvent.types.NEW;
+                p_event.sense = PerceptionEvent.senses.VISION;
 
-	 //   		SendMessage("PerceptionEvent", p_event);
-  //  		}
-		//}
+                SendMessage("PerceptionEvent", p_event);
+            }
+        }
 
-		//foreach(GameObject go in detected)
-		//{
-		//	if(detected_now.Contains(go) == false)
-		//	{
-		//		PerceptionEvent p_event = new PerceptionEvent();
-		//		p_event.go = go;
-		//		p_event.type = PerceptionEvent.types.LOST;
-	 //   		p_event.sense = PerceptionEvent.senses.VISION;
+        foreach (GameObject go in detected)
+        {
+            if (detected_now.Contains(go) == false)
+            {
+                PerceptionEvent p_event = new PerceptionEvent();
+                p_event.go = go;
+                p_event.type = PerceptionEvent.types.LOST;
+                p_event.sense = PerceptionEvent.senses.VISION;
 
-	 //   		SendMessage("PerceptionEvent", p_event);
-  //  		}
-		//}
+                SendMessage("PerceptionEvent", p_event);
+            }
+        }
 
-		//detected.Clear();
-		//detected.AddRange(detected_now);
-	}
+        detected.Clear();
+        detected.AddRange(detected_now);
+    }
 }
